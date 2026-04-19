@@ -1,6 +1,5 @@
 from rest_framework import serializers
 from rest_framework.relations import SlugRelatedField
-from rest_framework.exceptions import ValidationError
 from django.contrib.auth import get_user_model
 from posts.models import Comment, Post, Group, Follow
 
@@ -29,7 +28,8 @@ class FollowSerializer(serializers.ModelSerializer):
     def validate_following(self, value):
         request = self.context.get('request')
         if request and request.user == value:
-            raise serializers.ValidationError('Нельзя подписаться на самого себя')
+            raise serializers.ValidationError
+        ('Нельзя подписаться на самого себя')
         return value
 
 
@@ -43,10 +43,10 @@ class PostSerializer(serializers.ModelSerializer):
 
 class CommentSerializer(serializers.ModelSerializer):
     author = serializers.SlugRelatedField(
-        read_only=True, 
+        read_only=True,
         slug_field='username'
     )
-    
+
     class Meta:
         model = Comment
         fields = ('id', 'author', 'post', 'text', 'created')
