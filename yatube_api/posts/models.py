@@ -44,7 +44,8 @@ class Group(models.Model):
     slug = models.SlugField(max_length=50,
                             unique=True,
                             verbose_name='Уникальный идентификатор',
-                            help_text='Уникальный slug для URL (например: "python-django")')
+                            help_text='Уникальный slug для URL '
+                            '(например: "python-django")')
     description = models.TextField(blank=True)
 
     class Meta:
