@@ -98,7 +98,7 @@ REST_FRAMEWORK = {
     'DEFAULT_PERMISSION_CLASSES': [
         'rest_framework.permissions.IsAuthenticatedOrReadOnly',
     ],
-    #'DEFAULT_PAGINATION_CLASS': None,
+    # 'DEFAULT_PAGINATION_CLASS': None,
 }
 
 if 'pytest' in sys.argv:
