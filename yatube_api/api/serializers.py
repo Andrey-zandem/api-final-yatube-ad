@@ -34,11 +34,21 @@ class FollowSerializer(serializers.ModelSerializer):
 
 
 class PostSerializer(serializers.ModelSerializer):
-    author = SlugRelatedField(slug_field='username', read_only=True)
+    author = serializers.SlugRelatedField(
+        slug_field='username',
+        read_only=True
+    )
+    group = serializers.SlugRelatedField(
+        slug_field='id',
+        queryset=Group.objects.all(),
+        required=False,
+        allow_null=True
+    )
 
     class Meta:
-        fields = '__all__'
         model = Post
+        fields = ('id', 'text', 'pub_date', 'author', 'image', 'group')
+        read_only_fields = ('pub_date',)
 
 
 class CommentSerializer(serializers.ModelSerializer):
