@@ -24,7 +24,12 @@ class Follow(models.Model):
     class Meta:
         verbose_name = 'Подписка'
         verbose_name_plural = 'Подписки'
-        unique_together = ('user', 'following')
+        constraints = [
+            models.UniqueConstraint(
+                fields=['user', 'following'],
+                name='unique_user_following' 
+            )
+        ]
         ordering = ['-id']
 
     def __str__(self):
@@ -78,6 +83,11 @@ class Post(models.Model):
         related_name='posts',
         verbose_name='Группа'
     )
+
+    class Meta:
+        ordering = ['-pub_date']
+        verbose_name = 'Пост'
+        verbose_name_plural = 'Посты'
 
     def __str__(self):
         return self.text
