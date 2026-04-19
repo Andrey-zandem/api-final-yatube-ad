@@ -15,20 +15,22 @@ router.register(r'follow', FollowViewSet, basename='follow')
 
 urlpatterns = [
     path('', include(router.urls)),
-    
+
     # JWT эндпоинты
-    path('jwt/create/', TokenObtainPairView.as_view(), name='token_obtain_pair'),
+    path('jwt/create/', TokenObtainPairView.as_view(),
+         name='token_obtain_pair'),
     path('jwt/refresh/', TokenRefreshView.as_view(), name='token_refresh'),
     path('jwt/verify/', TokenVerifyView.as_view(), name='token_verify'),
 ]
 
 # Вложенные URL для комментариев
 urlpatterns += [
-    path('posts/<int:post_id>/comments/', 
+    path('posts/<int:post_id>/comments/',
          CommentViewSet.as_view({'get': 'list', 'post': 'create'}),
          name='post-comments'),
     path('posts/<int:post_id>/comments/<int:pk>/',
-         CommentViewSet.as_view({'get': 'retrieve', 'put': 'update', 
-                                 'patch': 'partial_update', 'delete': 'destroy'}),
+         CommentViewSet.as_view({'get': 'retrieve', 'put': 'update',
+                                 'patch': 'partial_update',
+                                 'delete': 'destroy'}),
          name='post-comment-detail'),
 ]
